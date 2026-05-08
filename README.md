@@ -78,4 +78,4 @@ Mythe has two types of tasks:
 
 ---
 
-Made with ❤️ by [M-lanGH](https://github.com/M-lanGH)
+Made by M-lanGH (https://github.com/M-lanGH)  And  Pyx.Inc (https://github.com/Pyx.Inc)
