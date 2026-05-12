@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 # ─────────────────────────────────────────
-#  mythe install <naam>
+#  mythe install <name>
 # ─────────────────────────────────────────
 
 TASK_NAME="$1"
