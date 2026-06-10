@@ -1,0 +1,100 @@
+-- =========================================================================
+-- GROW A GARDEN - OPIUMWARE SPECIAL UI EDITION
+-- Gebruikt OrionLib voor een visueel menu op je scherm
+-- =========================================================================
+
+local OrionLib = loadstring(game:HttpGet(('https://githubusercontent.com')))()
+
+-- Maak het hoofdvenster aan
+local Window = OrionLib:MakeWindow({
+    Name = "Grow a Garden - Premium Hub", 
+    HidePremium = false, 
+    SaveConfig = true, 
+    ConfigFolder = "OpiumGarden"
+})
+
+-- Maak een tabblad aan voor de automatiseringen
+local FarmTab = Window:MakeTab({
+    Name = "Auto Farm",
+    Icon = "rbxassetid://4483345998",
+    PremiumOnly = false
+})
+
+-- Variabelen voor de status van de functies
+_G.AutoHarvest = false
+_G.AutoCollect = false
+
+-- Functie: Automatisch planten oogsten (Zweef-methode)
+local function startHarvest()
+    local TweenService = game:GetService("TweenService")
+    local Players = game:GetService("Players")
+    local LocalPlayer = Players.LocalPlayer
+
+    while _G.AutoHarvest do
+        local character = LocalPlayer.Character
+        if character and character:FindFirstChild("HumanoidRootPart") then
+            local root = character.HumanoidRootPart
+            for _, v in pairs(workspace:GetDescendants()) do
+                if not _G.AutoHarvest then break end
+                
+                -- Zoekt naar de oogst-knoppen van de planten
+                if v:IsA("ProximityPrompt") and v.Parent:IsA("BasePart") then
+                    -- Vloeiende verplaatsing naar de plant (omzeilt anti-cheat bans)
+                    local dist = (root.Position - v.Parent.Position).Magnitude
+                    if dist < 100 then -- Alleen planten in de buurt
+                        root.CFrame = v.Parent.CFrame + Vector3.new(0, 3, 0)
+                        task.wait(0.2)
+                        fireproximityprompt(v)
+                        task.wait(0.3)
+                    end
+                end
+            end
+        end
+        task.wait(0.5)
+    end
+end
+
+-- --- UI ELEMENTEN (KNOPPEN EN TOGGLES) ---
+
+-- Aan/Uit schakelaar voor de Auto-Farmer
+FarmTab:AddToggle({
+    Name = "Auto Harvest & Re-plant",
+    Default = false,
+    Callback = function(Value)
+        _G.AutoHarvest = Value
+        if Value then
+            task.spawn(startHarvest)
+            OrionLib:MakeNotification({
+                Name = "Status",
+                Content = "Auto Harvest is INGESCHAKELD!",
+                Image = "rbxassetid://4483345998",
+                Time = 3
+            })
+        else
+            OrionLib:MakeNotification({
+                Name = "Status",
+                Content = "Auto Harvest is UITGESCHAKELD.",
+                Image = "rbxassetid://4483345998",
+                Time = 3
+            })
+        end
+    end    
+})
+
+-- Knop om direct alle rondslingerende munten/items te pakken
+FarmTab:AddButton({
+    Name = "Instant Collect Dropped Items",
+    Callback = function()
+        local root = game.Players.LocalPlayer.Character and game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart")
+        if root then
+            for _, item in pairs(workspace:GetChildren()) do
+                if item:IsA("Part") and (item.Name:lower():find("coin") or item.Name:lower():find("shekel")) then
+                    item.CFrame = root.CFrame
+                end
+            end
+        end
+    end
+})
+
+-- Initialiseer de UI (zorgt dat het menu daadwerkelijk popt)
+OrionLib:Init()
