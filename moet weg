@@ -1,0 +1,16 @@
+Ik wil een custom desktop-applicatie (een soort alternatieve 'qFlipper') bouwen voor Windows, specifiek om mijn LILYGO T-Dongle-S3 (ESP32-S3) te beheren. Ik kan zelf niet coderen, dus jij bent mijn Senior Software Engineer en leraar. Begeleid mij stap voor stap en leg alles uit in begrijpelijk Nederlands.
+
+Doel van de Windows-app:
+1. Verbinding maken met de LILYGO T-Dongle-S3 via een USB-kabel (Seriële COM-poort).
+2. Bestanden en scripts (zoals DuckyScripts) kunnen uploaden en downloaden van/naar de MicroSD-kaart van de LILYGO.
+3. Een simpele, mooie grafische interface (GUI) hebben op Windows die makkelijk te gebruiken is.
+
+Technische keuzes:
+Omdat qFlipper forken in C++ te complex is, wil ik dat we deze Windows-app bouwen in Python (met een bibliotheek voor de GUI zoals CustomTkinter of PyQt, en PySerial voor de USB-communicatie). Dit is voor een beginner veel makkelijker op te zetten.
+
+We gaan dit stap voor stap doen. Geef mij nog geen complete code, maar begin met Stap 1:
+1. Vertel me welke software (zoals Python en een code-editor) ik op mijn Windows-pc moet installeren.
+2. Leg me uit hoe we straks de Python-app via USB laten praten met de LILYGO.
+3. Vraag me om de benodigde details zodra ik klaar ben voor de volgende stap.
+
+Neem de leiding en stel me vragen als je meer informatie nodig hebt!
